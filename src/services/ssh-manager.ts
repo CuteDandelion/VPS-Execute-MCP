@@ -24,7 +24,14 @@ export class SSHManager {
     if (this.config.privateKeyPath) {
       try {
         connectConfig.privateKey = await fs.promises.readFile(this.config.privateKeyPath);
-        logger.info('Using SSH private key authentication');
+
+        // Add passphrase if provided
+        if (this.config.privateKeyPassphrase) {
+          connectConfig.passphrase = this.config.privateKeyPassphrase;
+          logger.info('Using SSH private key authentication with passphrase');
+        } else {
+          logger.info('Using SSH private key authentication');
+        }
       } catch (error) {
         logger.error('Failed to read private key', { error });
         throw new Error(`Failed to read private key: ${error}`);

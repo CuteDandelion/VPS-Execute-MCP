@@ -114,6 +114,21 @@ Always use SSH key authentication instead of passwords:
 }
 ```
 
+**For passphrase-protected SSH keys:**
+
+If your private key requires a passphrase, add it to the configuration:
+
+```json
+{
+  "env": {
+    "SSH_PRIVATE_KEY_PATH": "/home/user/.ssh/id_rsa",
+    "SSH_PRIVATE_KEY_PASSPHRASE": "your-key-passphrase"
+  }
+}
+```
+
+**Security Note:** While adding the passphrase to the config file is convenient, be aware that it will be stored in plain text. Consider the security trade-offs for your use case. For maximum security, use an unencrypted key dedicated to this purpose with restricted permissions on the remote host.
+
 ### 2. Command Whitelisting
 
 For additional security, enable command whitelisting:
@@ -172,6 +187,7 @@ Set appropriate command timeouts:
 2. Verify the private key path is correct and the file exists
 3. Check the private key permissions: `chmod 600 /path/to/key`
 4. Ensure the remote host is reachable from your network
+5. If using a passphrase-protected key, ensure `SSH_PRIVATE_KEY_PASSPHRASE` is set correctly
 
 ### Permission Denied Errors
 
