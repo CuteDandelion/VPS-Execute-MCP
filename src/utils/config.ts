@@ -9,6 +9,7 @@ export const config = {
     port: parseInt(process.env.SSH_PORT || '22'),
     username: process.env.SSH_USERNAME || '',
     privateKeyPath: process.env.SSH_PRIVATE_KEY_PATH,
+    privateKeyPassphrase: process.env.SSH_PRIVATE_KEY_PASSPHRASE,
     password: process.env.SSH_PASSWORD,
   } as SSHConfig,
 

@@ -31,6 +31,8 @@
    SSH_PORT=22
    SSH_USERNAME=your-username
    SSH_PRIVATE_KEY_PATH=/home/user/.ssh/id_rsa
+   # If your private key requires a passphrase:
+   # SSH_PRIVATE_KEY_PASSPHRASE=your-key-passphrase
 
    # API Server
    API_PORT=3000
@@ -93,11 +95,12 @@ curl http://localhost:3000/system-info \
 ## Security Best Practices
 
 1. **Use SSH Keys:** Always prefer SSH key authentication over passwords
-2. **Strong API Key:** Generate a strong random API key
-3. **Enable Whitelist:** For production, enable command whitelisting
-4. **Rate Limiting:** Configure appropriate rate limits for your use case
-5. **Firewall:** Only expose the API server to trusted networks
-6. **Logs:** Regularly review audit logs in `./logs/server.log`
+2. **Passphrase-Protected Keys:** If your SSH key requires a passphrase, add `SSH_PRIVATE_KEY_PASSPHRASE` to `.env` (note: stored in plain text)
+3. **Strong API Key:** Generate a strong random API key using `openssl rand -hex 32`
+4. **Enable Whitelist:** For production, enable command whitelisting
+5. **Rate Limiting:** Configure appropriate rate limits for your use case
+6. **Firewall:** Only expose the API server to trusted networks
+7. **Logs:** Regularly review audit logs in `./logs/server.log`
 
 ## Troubleshooting
 
@@ -107,6 +110,7 @@ curl http://localhost:3000/system-info \
 - Test SSH connection manually: `ssh -i /path/to/key user@host`
 - Check firewall rules on the remote host
 - Ensure the private key has correct permissions: `chmod 600 /path/to/key`
+- If using a passphrase-protected key, set `SSH_PRIVATE_KEY_PASSPHRASE` in your `.env` file
 
 ### API Authentication Issues
 
