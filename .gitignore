@@ -8,3 +8,6 @@ logs/
 *.key
 .vscode/
 .idea/
+id_rsa
+*.b64
+package-lock.json
